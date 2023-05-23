@@ -6,5 +6,12 @@ controllers:
 
 app_program:
     path: /program
-    controller: App\Controller\ProgramController::index
+    controller: 'App\Controller\ProgramController::index'
     methods: GET
+
+program_show:
+    path: /program/{id<\d+>}/
+    controller: 'App\Controller\ProgramController::show'
+    methods: GET
+    requirements:
+        id: '\d+'
