@@ -15,3 +15,8 @@ program_show:
     methods: GET
     requirements:
         id: '\d+'
+
+program_season_show:
+    path: /program/{programId}/seasons/{seasonId}
+    controller: App\Controller\ProgramController::showEpisodes
+    methods: GET
