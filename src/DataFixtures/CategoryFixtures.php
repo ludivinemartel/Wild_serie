@@ -6,7 +6,7 @@ use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class CategoryFixtures extends Fixture
+class CategoryFixtures extends Fixture 
 {
     const CATEGORIES = [
         'Action',
@@ -22,6 +22,7 @@ class CategoryFixtures extends Fixture
         $category = new Category();
         $category->setName($CategoryName);
         $manager->persist($category);
+
         $this->addReference('category_' . $CategoryName, $category);
        }
        $manager->flush();

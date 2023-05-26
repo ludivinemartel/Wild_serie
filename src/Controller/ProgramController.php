@@ -34,4 +34,32 @@ class ProgramController extends AbstractController
             'program' => $program,
         ]);
     }
+
+    #[Route('/program/{programId}/seasons/{seasonId}/episodes', name: 'season_show')]
+public function showEpisodes(int $programId, int $seasonId, ProgramRepository $programRepository): Response
+{
+    $program = $programRepository->findOneBy(['id' => $programId]);
+
+    if (!$program) {
+        throw $this->createNotFoundException(
+            'No program with id : '.$programId.' found in program\'s table.'
+        );
+    }
+
+    $season = $program->getSeasons()->filter(function ($season) use ($seasonId) {
+        return $season->getId() === $seasonId;
+    })->first();
+
+    if (!$season) {
+        throw $this->createNotFoundException(
+            'No season with id : '.$seasonId.' found in program\'s seasons.'
+        );
+    }
+
+    return $this->render('program/season_show.html.twig', [
+        'program' => $program,
+        'season' => $season,
+    ]);
+}
+
 }
