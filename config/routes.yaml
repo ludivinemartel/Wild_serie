@@ -20,3 +20,7 @@ program_season_show:
     path: /program/{programId}/seasons/{seasonId}
     controller: App\Controller\ProgramController::showEpisodes
     methods: GET
+
+program_episode_show:
+    path: '/program/{programId}/season/{seasonId}/episode/{episodeId}'
+    controller: 'App\Controller\ProgramController::showEpisodes'

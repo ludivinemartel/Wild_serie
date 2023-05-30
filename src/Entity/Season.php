@@ -24,11 +24,10 @@ class Season
     #[ORM\Column(length: 2000)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'seasons')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'seasons', targetEntity: Program::class, fetch: 'EAGER')]
     private ?Program $program = null;
 
-    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Episode::class)]
+    #[ORM\OneToMany(mappedBy: 'season', targetEntity: Episode::class, fetch: 'EAGER')]
     private Collection $episodes;
 
     public function __construct()
