@@ -28,10 +28,7 @@ class Program
     #[ORM\ManyToOne(inversedBy: 'programs')]
     private ?Category $category = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $season = null;
-
-    #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class)]
+    #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class, fetch: 'EAGER')]
     private Collection $seasons;
 
     public function __construct()
@@ -88,18 +85,6 @@ class Program
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    public function getSeason(): ?string
-    {
-        return $this->season;
-    }
-
-    public function setSeason(string $season): self
-    {
-        $this->season = $season;
 
         return $this;
     }
