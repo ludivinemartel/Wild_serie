@@ -46,16 +46,19 @@ class ProgramController extends AbstractController
             'programs' => $programs,
          ]);
     }
-    #[Route('/program/{id}/', name: 'show')]
-    public function show(Program $program):Response
+    #[Route("/{id}", requirements: ['page' => '\d+'], name: "show", methods: ['GET'])]
+    public function show(Program $program): Response
     {
+        $seasons = $program->getSeasons();
         if (!$program) {
             throw $this->createNotFoundException(
-                'No program with id : '.$id.' found in program\'s table.'
+                'Aucune série avec le numéro : ' . $program->getId() . ' n\'a été trouvée dans la liste des séries.'
             );
         }
-
-        return $this->render('program/show.html.twig', ['program' => $program, ]);
+        return $this->render('program/show.html.twig', [
+            'program' => $program,
+            'seasons' => $seasons,
+        ]);
     }
 
     #[Route('/program/{programId}/seasons/{seasonId}', name: 'season_show')]
